@@ -6,6 +6,7 @@
     <string name="button_add_player_cancel">Done</string>
     <string name="button_start">Start</string>
     <string name="add_dialog">Player Name</string>
-    <string name="clear">clear</string>
-    <string name="next">next</string>
+    <string name="clear">Clear</string>
+    <string name="share">Share</string>
+    <string name="next">Next</string>
 </resources>

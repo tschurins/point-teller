@@ -5,4 +5,9 @@
         android:icon="@drawable/ic_clear_all_24dp"
         android:title="@string/clear"
         app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/action_po_share"
+        android:icon="@drawable/ic_baseline_share_24"
+        android:title="@string/share"
+        app:showAsAction="ifRoom"/>
 </menu>

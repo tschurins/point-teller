@@ -1,11 +1,14 @@
 package jal.pointscounter
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -38,7 +41,6 @@ class PointsActivity : AppCompatActivity() {
 
         val totalView: RecyclerView = findViewById(R.id.footer_view)
         totalView.layoutManager = GridLayoutManager(this, ApplicationState.players.size)
-        //totalView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         val totalAdapter = TotalAdapter(ApplicationState.points)
         totalView.adapter = totalAdapter
 
@@ -54,7 +56,6 @@ class PointsActivity : AppCompatActivity() {
             totalAdapter.notifyDataSetChanged()
             pointView.smoothScrollToPosition(pointAdapter.itemCount - 1)
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -89,10 +90,22 @@ class PointAdapter(private val dataSet: Points, private val totalAdapter: TotalA
         var col: Int = 0
 
         init {
-            // Define click listener for the ViewHolder's View.
             textView = view.findViewById(R.id.point_text)
+
+            // making sure that the content is selected on focus
+            textView.setSelectAllOnFocus(true)
+
+            // clicking on the box -> focus in the text field
+            val frame: FrameLayout = view.findViewById(R.id.point_frame)
+            frame.setOnClickListener { v ->
+                textView.requestFocus()
+
+                val imm: InputMethodManager? = v.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager?
+                imm?.showSoftInput(textView, InputMethodManager.SHOW_IMPLICIT)
+            }
         }
     }
+
     // Create new views (invoked by the layout manager)
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         // Create a new view, which defines the UI of the list item
