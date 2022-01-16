@@ -12,6 +12,7 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -49,12 +50,34 @@ class PointsActivity : AppCompatActivity() {
         pointAdapter = PointAdapter(ApplicationState.points, totalAdapter)
         pointView.adapter = pointAdapter
 
+
         val addRowButton: View = findViewById(R.id.addPointRow)
         addRowButton.setOnClickListener {
             ApplicationState.addRow()
-            pointAdapter.notifyDataSetChanged()
-            totalAdapter.notifyDataSetChanged()
-            pointView.smoothScrollToPosition(pointAdapter.itemCount - 1)
+
+            // notify adapter for each new items
+            for (i in 0..ApplicationState.players.size) {
+                pointAdapter.notifyItemInserted(pointAdapter.getFirstCellFromLastRow() + i)
+            }
+
+            // scroll to first item of the new row
+            pointView.smoothScrollToPosition(pointAdapter.getFirstCellFromLastRow())
+
+            // edit the item
+            pointView.post {
+                pointView.post {
+                    // need two post-s because on the first, the layout has not yet scrolled
+                    val childOnNewRow = pointView.children.filter { child ->
+                        pointView.getChildAdapterPosition(child) == pointAdapter.getFirstCellFromLastRow()
+                    }.elementAtOrNull(0)
+                    if (childOnNewRow != null) {
+                        val childViewHolder =
+                            pointView.getChildViewHolder(childOnNewRow) as PointAdapter.ViewHolder
+                        System.err.println(childViewHolder)
+                        childViewHolder.textView.requestFocus()
+                    }
+                }
+            }
         }
     }
 
@@ -138,6 +161,10 @@ class PointAdapter(private val dataSet: Points, private val totalAdapter: TotalA
 
     override fun getItemCount(): Int {
         return dataSet.points.size * ApplicationState.players.size
+    }
+
+    fun getFirstCellFromLastRow(): Int {
+        return (dataSet.points.size - 1) * ApplicationState.players.size;
     }
 }
 
