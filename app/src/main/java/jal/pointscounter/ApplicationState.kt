@@ -1,5 +1,8 @@
 package jal.pointscounter
 
+/**
+ * Singleton holding the players and their points.
+ */
 object ApplicationState {
     val players = mutableListOf<String>()
     val points = Points()
@@ -25,6 +28,9 @@ object ApplicationState {
     }
 }
 
+/**
+ * Holder for the points of the players, and their total.
+ */
 class Points() {
     val points = mutableListOf(mutableListOf<Int>())
     val total = mutableListOf<Int>()

@@ -32,6 +32,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+/**
+ * Activity for displaying and filling the points of a game.
+ * It contains a table where each player corresponds to a column.
+ * Each row of the table corresponds to a match.
+ * The game total points are displayed below the table.
+ */
 class PointsActivity : AppCompatActivity() {
     private lateinit var pointAdapter: PointAdapter
 
@@ -227,7 +233,9 @@ class PointsActivity : AppCompatActivity() {
     }
 }
 
-
+/**
+ * Recycle view adapter for displaying and modifying one point of a player (column) in a match (row).
+ */
 class PointAdapter(private val dataSet: Points, private val totalAdapter: TotalAdapter) : RecyclerView.Adapter<PointAdapter.ViewHolder>() {
     /**
      * Provide a reference to the type of views that you are using
@@ -295,6 +303,9 @@ class PointAdapter(private val dataSet: Points, private val totalAdapter: TotalA
 }
 
 
+/**
+ * Recycle view adapter for displaying the total point for a player (column).
+ */
 class TotalAdapter(private val dataSet: Points) : RecyclerView.Adapter<TotalAdapter.ViewHolder>() {
     /**
      * Provide a reference to the type of views that you are using

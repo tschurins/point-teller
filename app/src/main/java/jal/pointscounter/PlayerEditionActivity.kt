@@ -15,6 +15,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 
 
+/**
+ * Starting activity, allowing the user to fill the names of the players.
+ * It contains a table with the player names.
+ * After filling the player names, a button allows to go to the next activity: the point activity.
+ */
 class PlayerEditionActivity : AppCompatActivity() {
     private lateinit var playerAdapter: PlayerAdapter
     private var menu: Menu? = null
@@ -112,6 +117,9 @@ class PlayerEditionActivity : AppCompatActivity() {
 
 }
 
+/**
+ * Recycle View adapter for displaying a player.
+ */
 class PlayerAdapter(private val dataSet: List<String>) : RecyclerView.Adapter<PlayerAdapter.ViewHolder>() {
     /**
      * Provide a reference to the type of views that you are using
