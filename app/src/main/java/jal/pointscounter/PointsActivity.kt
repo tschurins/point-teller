@@ -91,7 +91,6 @@ class PointsActivity : AppCompatActivity() {
                     if (childOnNewRow != null) {
                         val childViewHolder =
                             pointView.getChildViewHolder(childOnNewRow) as PointAdapter.ViewHolder
-                        System.err.println(childViewHolder)
                         childViewHolder.textView.requestFocus()
                     }
                 }

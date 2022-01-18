@@ -25,6 +25,20 @@ class ApplicationStateTest {
     }
 
     @Test
+    fun removePlayer() {
+        with (ApplicationState) {
+            initState()
+
+            removePlayer("A2")
+            assertEquals(mutableListOf("A1"), players)
+            assertEquals(2, points.points.size)
+            assertEquals(mutableListOf(1), points.points[0])
+            assertEquals(mutableListOf(3), points.points[1])
+            assertEquals(mutableListOf(4), points.total);
+        }
+    }
+
+    @Test
     fun addRow() {
         with (ApplicationState) {
             initState()
